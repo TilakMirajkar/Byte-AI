@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="w-full h-screen p-6 bg-white">
+    <p class="text-2xl font-black text-center my-12">Chat with Byte AI</p>
+
+    <div id="chat-box" class="space-y-4 p-3 rounded overflow-y-auto mx-auto w-1/2 h-96 mb-56 p-4"></div>
+
+    <form id="chat-form" class="my-4 flex mx-auto w-1/2">
+        <input type="text" id="user-input" class="flex-1 px-3 py-2 border rounded-full text-md" placeholder="Type a message..." autocomplete="off">
+        <button type="submit" class="ml-2 p-3 bg-black text-white rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);"><path d="M11 8.414V18h2V8.414l4.293 4.293 1.414-1.414L12 4.586l-6.707 6.707 1.414 1.414z"></path></svg>
+        </button>
+    </form>
+</div>
+
+<style>
+    .typing {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+    }
+
+    .dot {
+        width: 6px;
+        height: 6px;
+        background-color: #555;
+        border-radius: 50%;
+        animation: typing-animation 1.5s infinite;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing-animation {
+        0% { opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { opacity: 0.3; }
+    }
+</style>
+
+<script>
+    document.getElementById("chat-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let inputField = document.getElementById("user-input");
+        let message = inputField.value.trim();
+        
+        if (message) {
+            let chatBox = document.getElementById("chat-box");
+
+
+            chatBox.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-black text-white px-4 py-2 rounded-2xl max-w-xs text-right">
+                        ${message}
+                    </div>
+                </div>
+            `;
+
+            inputField.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+
+            let typingIndicator = document.createElement("div");
+            typingIndicator.classList.add("flex", "justify-start");
+            typingIndicator.innerHTML = `
+                <div class="bg-gray-100 px-4 py-2 rounded-2xl max-w-xs text-left flex items-center">
+                    <div class="typing">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            `;
+            chatBox.appendChild(typingIndicator);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            fetch("{% url 'chat_api' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response) {
+
+                    typingIndicator.remove();
+
+
+                    chatBox.innerHTML += `
+                        <div class="flex justify-start">
+                            <div class="bg-gray-100 text-black px-4 py-2 rounded-2xl max-w-xs text-left">
+                                ${data.response}
+                            </div>
+                        </div>
+                    `;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                typingIndicator.remove();
+            });
+        }
+    });
+</script>
+
+{% endblock %}
