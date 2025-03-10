@@ -63,7 +63,7 @@ WSGI_APPLICATION = "Byte.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://postgres:postgres@localhost:5432/byte_ep7q",
+        default="postgresql://byte_ep7q_user:78rNdW347wP1ZkdnNeVrYWejd2yKVkNz@dpg-cv79132j1k6c73ea7uu0-a.oregon-postgres.render.com/byte_ep7q",
         conn_max_age=600,
     )
 }
@@ -94,7 +94,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
