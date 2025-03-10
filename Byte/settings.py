@@ -63,7 +63,8 @@ WSGI_APPLICATION = "Byte.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://postgres:postgres@localhost:5432/byte", conn_max_age=600
+        default="postgresql://postgres:postgres@localhost:5432/byte_ep7q",
+        conn_max_age=600,
     )
 }
 
