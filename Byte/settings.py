@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["onrender.com"]
+ALLOWED_HOSTS = ["onrender.com", "byte-ai.onrender.com"]
 
 
 INSTALLED_APPS = [
