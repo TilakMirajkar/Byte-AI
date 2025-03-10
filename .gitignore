@@ -1,6 +1,5 @@
 .venv
 .env
-build.sh
 db.sqlite3
 Byte/__pycache__
 app/__pycache__
