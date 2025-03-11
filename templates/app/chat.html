@@ -3,15 +3,15 @@
 {% load tailwind_filters %}
 
 {% block content %}
-<div class="w-full h-screen p-6 bg-white">
+<div class="w-full p-6 bg-white">
     <p class="text-2xl font-black text-center my-12">Chat with Byte AI</p>
 
-    <div id="chat-box" class="space-y-4 p-3 rounded overflow-y-auto mx-auto w-full sm:w-3/4 md:w-1/2 h-96 mb-24 p-4 max-w-md"></div>
+    <div id="chat-box" class="space-y-4 p-3 rounded overflow-y-auto mx-auto w-full sm:w-3/4 md:w-1/2 h-96 mb-12 p-4 max-w-md"></div>
 
-    <form id="chat-form" class="my-4 flex mx-auto w-full sm:w-3/4 md:w-1/2 max-w-md">
-        <input type="text" id="user-input" class="flex-1 px-3 py-2 border rounded-full text-md" placeholder="Type a message..." autocomplete="off">
+    <form id="chat-form" class="flex mx-auto w-full sm:w-3/4 md:w-1/2 max-w-md">
+        <input type="text" id="user-input" class="flex-1 px-3 py-2 border rounded-full text-md" placeholder="Ask anything..." autocomplete="off">
         <button type="submit" class="ml-2 p-3 bg-black text-white rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);">
                 <path d="M11 8.414V18h2V8.414l4.293 4.293 1.414-1.414L12 4.586l-6.707 6.707 1.414 1.414z"></path>
             </svg>
         </button>

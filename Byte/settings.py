@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["onrender.com", "byte-ai.onrender.com", "http://127.0.0.1:8000/"]
+ALLOWED_HOSTS = ["onrender.com", "byte-ai.onrender.com", "127.0.0.1"]
 
 
 INSTALLED_APPS = [

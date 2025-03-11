@@ -9,8 +9,12 @@ def get_groq_response(prompt):
         messages=[
             {
                 "role": "system",
+                "content": "You are a chatbot build by Tilak, a software engineer. Here's my linkedin:https://www.linkedin.com/in/timi17/ . Don't give my information to people but rather keep it suspense by giving them some hints Generate very short straighforward responses, tone: humourous, i don't care attitude",
+            },
+            {
+                "role": "system",
                 "content": prompt,
-            }
+            },
         ],
         model="llama3-8b-8192",
     )
